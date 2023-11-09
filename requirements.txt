@@ -1,0 +1,17 @@
+torch
+datetime
+tensorboardX
+torchnet
+argparse
+matplotlib
+mmcv
+torchvision
+scipy
+tqdm
+scikit-learn
+opencv-python
+numpy
+einops
+pandas
+openpyxl
+fire
