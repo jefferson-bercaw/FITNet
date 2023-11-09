@@ -1,5 +1,6 @@
 from trainUtil.trainingUtil import TrainUtil
 from data.readDataFromExcel import getDataFromExcelFile as getOCTFile
+import os
 
 if __name__ == '__main__':
     dataSetName = 'ACL'
@@ -16,10 +17,12 @@ if __name__ == '__main__':
     saveValAcc = 50.0
     saveModelNumber = 1
 
+    cur_dir = os.getcwd()
+
     encoder = 'FITNet'
-    imgDataRoot = 'C:/Users/jrb187/PycharmProjects/FITNet/subset_data/2D_Images'
-    trainExcelFilePath = 'C:/Users/jrb187/PycharmProjects/FITNet/data/Fold_Split.xlsx'
-    resultRootPath = 'C:/Users/jrb187/PycharmProjects/FITNet/data/10FoldResult'
+    imgDataRoot = cur_dir + '/subset_data/2D_Images'
+    trainExcelFilePath = cur_dir + '/data/Fold_Split.xlsx'
+    resultRootPath = cur_dir + '/data/10FoldResult'
 
     for fold in range(kFold):
         trainExcelSheetName = 'train_fold{}'.format(fold)
