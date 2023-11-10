@@ -24,15 +24,16 @@ if __name__ == '__main__':
     trainExcelFilePath = cur_dir + '/data/Fold_Split.xlsx'
     resultRootPath = cur_dir + '/data/10FoldResult'
 
-    for fold in range(kFold):
-        trainExcelSheetName = 'train_fold{}'.format(fold)
-        validExcelSheetName = 'valid_fold{}'.format(fold)
+    fold = int(os.environ['SLURM_ARRAY_TASK_ID'])
+    # for fold in range(kFold):
+    trainExcelSheetName = 'train_fold{}'.format(fold)
+    validExcelSheetName = 'valid_fold{}'.format(fold)
 
-        training = TrainUtil(dataSetName=dataSetName, classNumber=classNumber, trainDataRoot=trainExcelSheetName,
-                             validDataRoot=validExcelSheetName, encoder=encoder, getDataFunc=getOCTFile,
-                             resultRootPath=resultRootPath, baseLR=baseLR, lr_scheduler=lr_scheduler,
-                             gpuNumber=gpuNumber, saveValAcc=saveValAcc, saveModelNumber=saveModelNumber,
-                             lossName=lossName, optimizer=optimizer, imgSize=imgSize, epoch_num=epoch_num,
-                             imgDataRoot=imgDataRoot, trainExcelFilePath=trainExcelFilePath,
-                             fold=fold)
-        training.running()
+    training = TrainUtil(dataSetName=dataSetName, classNumber=classNumber, trainDataRoot=trainExcelSheetName,
+                         validDataRoot=validExcelSheetName, encoder=encoder, getDataFunc=getOCTFile,
+                         resultRootPath=resultRootPath, baseLR=baseLR, lr_scheduler=lr_scheduler,
+                         gpuNumber=gpuNumber, saveValAcc=saveValAcc, saveModelNumber=saveModelNumber,
+                         lossName=lossName, optimizer=optimizer, imgSize=imgSize, epoch_num=epoch_num,
+                         imgDataRoot=imgDataRoot, trainExcelFilePath=trainExcelFilePath,
+                         fold=fold)
+    training.running()
