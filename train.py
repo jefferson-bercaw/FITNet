@@ -26,15 +26,13 @@ if __name__ == '__main__':
 
     fold = int(os.environ['SLURM_ARRAY_TASK_ID'])
     # for fold in range(kFold):
-<<<<<<< HEAD
-    trainExcelSheetName = 'train_fold{}'.format(fold)
-    validExcelSheetName = 'valid_fold{}'.format(fold)
-
-=======
 
     trainExcelSheetName = 'train_fold{}'.format(fold)
     validExcelSheetName = 'valid_fold{}'.format(fold)
->>>>>>> e90c0b76615d10a03c6ba53f7cf9454f3c9c7a81
+
+    trainExcelSheetName = 'train_fold{}'.format(fold)
+    validExcelSheetName = 'valid_fold{}'.format(fold)
+
     training = TrainUtil(dataSetName=dataSetName, classNumber=classNumber, trainDataRoot=trainExcelSheetName,
                          validDataRoot=validExcelSheetName, encoder=encoder, getDataFunc=getOCTFile,
                          resultRootPath=resultRootPath, baseLR=baseLR, lr_scheduler=lr_scheduler,
