@@ -20,7 +20,7 @@ class TrainUtil:
                  baseLR=1e-3, lr_scheduler='step', gpuNumber="cuda:3", saveValAcc=70.0,
                  saveModelNumber=100, lossName='crossEntropyLoss', optimizer='Adam', dataSetFlag=None,
                  imgSize=224, epoch_num=200, preWeight=None, imgDataRoot=None, trainExcelFilePath=None,
-                 teacher=None, fold=None, noise=None, batchSize=48, focalLossGamma=2):
+                 teacher=None, fold=None, noise=None, batchSize=24, focalLossGamma=2):
         self.dataSetName = dataSetName
         self.classNumber = classNumber
         self.epoch_num = epoch_num
