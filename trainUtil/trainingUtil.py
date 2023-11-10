@@ -219,6 +219,7 @@ class TrainUtil:
                 total += batch_size
                 train_correct += correct
                 train_loss += loss.item() * batch_size
+                torch.cuda.empty_cache()
 
             # Record the loss function and accuracy after training an epoch
             train_acc = float(train_correct) / total
