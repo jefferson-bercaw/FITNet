@@ -7,14 +7,14 @@ from Utils import saveDataAs_npz
 if __name__ == '__main__':
     import os
     from os.path import join
-    dataSetName = 'Basel'
-    classNumber = 3
-    labelList = ['Normal', 'DME', 'Other']
+    dataSetName = 'ACL'
+    classNumber = 2
+    labelList = ['Normal', 'ACL Injury']
     gpuNumber = "cuda:2"
-    imgDataRoot = 'xxx/OCT_Basel/ImgData'
-    trainExcelFilePath = 'xxx/xxx.xlsx'
-    modelRootPath = 'xxx/Basel10FoldResult'
-    resultRootPath = 'xxx/metric_Basel'
+    imgDataRoot = 'C:/Users/jrb187/PycharmProjects/FITNet/subset_data'
+    trainExcelFilePath = 'C:/Users/jrb187/PycharmProjects/FITNet/data/Fold_Split.xlsx'
+    modelRootPath = 'C:/Users/jrb187/PycharmProjects/FITNet/data/10FoldResult'
+    resultRootPath = 'C:/Users/jrb187/PycharmProjects/FITNet/metric_ACL'
     if not os.path.isdir(resultRootPath):
         os.makedirs(resultRootPath)
     fileName_npz = join(resultRootPath, 'methodOverallResult.npz')
