@@ -218,7 +218,7 @@ def plotRocCurve_multiClass(classNumber: int, true_label, scores, save_path, pic
     scores = np.array(scores)
     # One vs rest method to calculate TPR/FPR and AUC for each category
     for i in range(classNumber):
-        fpr[i], tpr[i], _ = roc_curve(np.array(true_label[:, i]), scores[:, i])
+        fpr[i], tpr[i], _ = roc_curve(np.array(true_label[:, 0]), scores[:, i])
         roc_auc[i] = auc(fpr[i], tpr[i])
     color_index = []
     label_index = []

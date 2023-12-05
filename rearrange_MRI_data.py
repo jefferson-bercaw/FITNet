@@ -85,7 +85,7 @@ if __name__ == '__main__':
                 save_file_name = get_save_file_name(img, slice_num, 'bmp')
                 save_location = get_save_location(label)
 
-                save_image_file(slice_data, save_file_name, save_location)
+                # save_image_file(slice_data, save_file_name, save_location)
 
     fewest_slices = min(num_slices_total)
     print(fewest_slices)

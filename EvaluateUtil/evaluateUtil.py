@@ -116,11 +116,10 @@ class EvaluateUtil:
         if config.load_model_weight_path:
             print("Loading model param!")
             model.load_state_dict(
-                torch.load(config.load_model_weight_path,
-                           map_location=lambda storage,
-                                               loc: storage.cuda(int(self.gpuNumber.split(':')[-1])))
+                torch.load(config.load_model_weight_path))
+                                               # loc: storage.cuda(0))
                 # torch.load(config.load_model_weight_path)
-            )
+
         else:
             Exception("No model Param!")
         model.to(config.device)

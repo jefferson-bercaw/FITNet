@@ -76,13 +76,15 @@ class getDataFromExcelFile(data.Dataset):
         excelData = pd.read_excel(self.excelFilePath, sheet_name=self.excelSheetName)
         excelData = excelData.dropna(
             subset=['img', 'label'])
-        imgName = excelData.loc[:, 'img'].values
-        imgLabel = excelData.loc[:, 'label'].values
+        imgName = excelData.loc[0::24, 'img'].values
+        imgLabel = excelData.loc[0::24, 'label'].values
 
         dataLen = len(imgName)
+
         print('Total amount of data:', dataLen)
+
         item_dict = {}
-        for index in range(dataLen):
+        for index in range(round(dataLen)):
             # Get image and label information
             item_dict["img"] = imgName[index]
             item_dict["label"] = imgLabel[index]
@@ -95,22 +97,38 @@ class getDataFromExcelFile(data.Dataset):
         return len(self.excelData)
 
     def __getitem__(self, index) -> List:
-        imgPath = join(self.imgRootPath, self.excelData[index]["img"])
-        imgLable = self.excelData[index]['label']
-        imgFile = Image.open(imgPath).convert('RGB')
-
-        if self.trainFlag:
-            if self.noise is None:
-                imgFile = getOctTrainTransforms(self.imgSize)(imgFile)
+        img_name_0000 = self.excelData[index]["img"]
+        subj = img_name_0000.split("_")[0]
+        img_name = []
+        for num in range(24):
+            if num < 10:
+                s_num = f'000{num}'
             else:
-                imgFile = octTrainImgTransforms_withNoise(imgFile)
-        else:
-            if self.noise is not None:
-                imgFile = octTestImgTransform_withNoise(self.noise)(imgFile)
-            else:
-                imgFile = getOctTestTransforms(self.imgSize)(imgFile)
+                s_num = f'00{num}'
+            img_name.append(f'{subj}_{s_num}.bmp')
 
-        return [imgFile, imgLable, os.path.basename(self.excelData[index]["img"]).split(".")[0]]
+        image_data = np.empty((224, 224, 24), dtype=np.uint8)
+        for idx, cur_img_name in enumerate(img_name):
+            imgPath = join(self.imgRootPath, cur_img_name)
+            imgLable = self.excelData[index]['label']
+            img = Image.open(imgPath)
+            img_array = np.array(img)
+            image_data[:, :, idx] = img_array
+
+        # image_data_img = Image.fromarray(image_data)
+
+        # if self.trainFlag:
+        #     if self.noise is None:
+        #         imgFile = getOctTrainTransforms(self.imgSize)(imgFile)
+        #     else:
+        #         imgFile = octTrainImgTransforms_withNoise(imgFile)
+        # else:
+        #     if self.noise is not None:
+        #         imgFile = octTestImgTransform_withNoise(self.noise)(imgFile)
+        #     else:
+        #         imgFile = getOctTestTransforms(self.imgSize)(imgFile)
+
+        return [image_data, imgLable, subj]
 
 # Just for PM OCT Dual-view lesion classification
 class getDataFromExcelFile_HV(data.Dataset):

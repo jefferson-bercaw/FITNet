@@ -9,9 +9,9 @@ if __name__ == '__main__':
     from os.path import join
     dataSetName = 'ACL'
     classNumber = 2
-    labelList = ['Normal', 'ACL Injury']
-    gpuNumber = "cuda:2"
-    imgDataRoot = 'C:/Users/jrb187/PycharmProjects/FITNet/subset_data'
+    labelList = ['Injury', 'Non-Injury']
+    gpuNumber = "cuda"
+    imgDataRoot = 'C:/Users/jrb187/PycharmProjects/FITNet/subset_data/2D_Images'
     trainExcelFilePath = 'C:/Users/jrb187/PycharmProjects/FITNet/data/Fold_Split.xlsx'
     modelRootPath = 'C:/Users/jrb187/PycharmProjects/FITNet/data/10FoldResult'
     resultRootPath = 'C:/Users/jrb187/PycharmProjects/FITNet/metric_ACL'
@@ -49,7 +49,7 @@ if __name__ == '__main__':
             acc, result, true_labels, pred_labels, scores_AUC = EvaluateUtil(
                 testDataRoot=validExcelSheetName, dataSetName=dataSetName, resultRootPath=resultRootPath,
                 classNumber=classNumber, modelEncoder=modelEncoder, labelList=labelList,
-                getDataFunc=getOCTFile, gpuNumber=gpuNumber, imgSize= imgSize,
+                getDataFunc=getOCTFile, gpuNumber=gpuNumber, imgSize=imgSize,
                 saveCM_and_ROC_Curve_flag=True, useForRocCompare=True,
                 imgDataRoot=imgDataRoot, trainExcelFilePath=trainExcelFilePath,
                 kFoldFlag=True).main(load_model_weight_path=modelPath, modelName=modelName)
